@@ -8,6 +8,7 @@ const dom = {
         elements.c = document.querySelector('#cSpielfeld');
         elements.cBG = document.querySelector('#cBG');
         elements.body= document.querySelector('body');
+        elements.spritesheet = document.querySelector('#spritesheet');
     },
     create({
                content = false,
@@ -63,7 +64,6 @@ const dom = {
             render.init()
         })
         document.body.addEventListener('keydown', e => {
-            console.log(e.key);
         })
     },
 

@@ -2,6 +2,7 @@
 
 import dom from "./dom.js";
 import render from './render.js';
+import game from './game.js';
 import connector from '/connector/index.js';
 
 const init = () => {
@@ -10,8 +11,13 @@ const init = () => {
     dom.mapping();
     dom.appendEventListeners();
     render.init()
-    render.createBG();
-
+    render.createSprite().then(
+        render.createBG
+    ).then(
+        game.init
+    ).catch(
+        console.warn
+    )
 
 }
 

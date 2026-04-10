@@ -35,7 +35,7 @@ const render = {
     },
 
     createBG() {
-        fetch('/getFileListOfFolder', {
+      return   fetch('/getFileListOfFolder', {
             method: 'post',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
@@ -45,7 +45,7 @@ const render = {
             res => res.json()
         ).then(
             res => {
-                console.log(res);
+                // console.log(res);
                 let imgPath = res[~~(Math.random() * res.length)];
 
                 elements.imgBG = dom.create({
@@ -64,9 +64,23 @@ const render = {
                 });
 
             }
-        ).catch(
-            console.warn
         )
+    },
+
+    createSprite(){
+      return new Promise((resolve) => {
+
+        elements.sprite = dom.create({
+          tagName: 'img',
+          src:'./assets/img/spritesheet/viking.webp',
+          parent: document.body,
+          listeners: {
+              load(){
+                  resolve()
+              }
+          }
+      })
+      })
     },
 }
 
