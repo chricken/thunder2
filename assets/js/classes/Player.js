@@ -13,7 +13,7 @@ class Player {
         this.sourceSize = 312;
         this.targetSize = 172;
 
-        this.minDistFromEdge = 0.05;
+        this.minDistFromEdge = 0.02;
     }
 
     changeDirection() {

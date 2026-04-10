@@ -9,21 +9,26 @@ const render = {
         let w = document.documentElement.clientWidth - 20;
         let h = document.documentElement.clientHeight - 20;
 
-        if (w * (2 / 3) < h) {
-            h = w * (2 / 3);
-        } else {
-            w = h / (2 / 3)
-        }
+        if (w * (2 / 3) < h) h = w * (2 / 3);
+        else w = h / (2 / 3)
+
+        let l = (document.documentElement.clientWidth - w) / 2 + 'px';
+        let t = (document.documentElement.clientHeight - h) / 2 + 'px';
 
         elements.c.width = w;
         elements.c.height = h;
-        elements.c.style.left = (document.documentElement.clientWidth - w) / 2 + 'px';
-        elements.c.style.top = (document.documentElement.clientHeight - h) / 2 + 'px';
+        elements.c.style.left = l;
+        elements.c.style.top = t;
 
         elements.cBG.width = w;
         elements.cBG.height = h;
-        elements.cBG.style.left = (document.documentElement.clientWidth - w) / 2 + 'px';
-        elements.cBG.style.top = (document.documentElement.clientHeight - h) / 2 + 'px';
+        elements.cBG.style.left = l;
+        elements.cBG.style.top = t;
+
+        elements.cForeground.width = w;
+        elements.cForeground.height = h;
+        elements.cForeground.style.left = l;
+        elements.cForeground.style.top = t;
 
         let c = elements.cBG;
         let ctxBG = c.getContext('2d');
@@ -35,7 +40,7 @@ const render = {
     },
 
     createBG() {
-      return   fetch('/getFileListOfFolder', {
+        return fetch('/getFileListOfFolder', {
             method: 'post',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
@@ -45,12 +50,10 @@ const render = {
             res => res.json()
         ).then(
             res => {
-                // console.log(res);
                 let imgPath = res[~~(Math.random() * res.length)];
 
                 elements.imgBG = dom.create({
                     tagName: 'img',
-                    // parent:document.body,
                     src: `./assets/img/backgrounds/${imgPath}`
                 })
 
@@ -59,7 +62,6 @@ const render = {
 
                 elements.imgBG.addEventListener('load', () => {
                     ctxBG.drawImage(elements.imgBG, 0, 0, c.width, c.height);
-                    // console.log(c, c.width, c.height);
                     document.body.style.backgroundImage = `url('${elements.imgBG.getAttribute('src')}')`;
                 });
 
@@ -67,20 +69,20 @@ const render = {
         )
     },
 
-    createSprite(){
-      return new Promise((resolve) => {
+    createSprite() {
+        return new Promise((resolve) => {
 
-        elements.sprite = dom.create({
-          tagName: 'img',
-          src:'./assets/img/spritesheet/viking.webp',
-          parent: document.body,
-          listeners: {
-              load(){
-                  resolve()
-              }
-          }
-      })
-      })
+            elements.sprite = dom.create({
+                tagName: 'img',
+                src: './assets/img/spritesheet/viking.webp',
+                // parent: document.body,
+                listeners: {
+                    load() {
+                        resolve()
+                    }
+                }
+            })
+        })
     },
 }
 

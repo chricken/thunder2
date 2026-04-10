@@ -7,6 +7,7 @@ const dom = {
     mapping() {
         elements.c = document.querySelector('#cSpielfeld');
         elements.cBG = document.querySelector('#cBG');
+        elements.cForeground = document.querySelector('#cForeground');
         elements.body= document.querySelector('body');
         elements.spritesheet = document.querySelector('#spritesheet');
     },
