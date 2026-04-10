@@ -57,14 +57,25 @@ const render = {
                     src: `./assets/img/backgrounds/${imgPath}`
                 })
 
+                // Background
                 let c = elements.cBG;
-                let ctxBG = c.getContext('2d');
-
+                let ctx = c.getContext('2d');
                 elements.imgBG.addEventListener('load', () => {
-                    ctxBG.drawImage(elements.imgBG, 0, 0, c.width, c.height);
+                    ctx.drawImage(elements.imgBG, 0, 0, c.width, c.height);
                     document.body.style.backgroundImage = `url('${elements.imgBG.getAttribute('src')}')`;
                 });
 
+                // Foreground
+                /*
+                c = elements.cForeground;
+                let ctxFG = c.getContext('2d');
+                let grad = ctx.createLinearGradient(0, 0, 0, c.height / 6);
+                grad.addColorStop(0, '#000c');
+                grad.addColorStop(.6, '#000a');
+                grad.addColorStop(1, '#0000');
+                ctxFG.fillStyle = grad;
+                ctxFG.fillRect(0, 0, c.width, c.height);
+                */
             }
         )
     },
