@@ -11,14 +11,13 @@ const game = {
     init() {
         player = new Player();
         lightning = new Lightning();
-        /*
+
         setInterval(() => {
                 game.update();
                 game.render();
             },
             30
         )
-        */
 
         game.update();
         game.render();

@@ -1,10 +1,11 @@
 'use strict';
 
 import elements from "../elements.js";
+import settings from "../settings.js";
 
 class Player {
     constructor() {
-        this.pos = {x: 0.2, y: 0.985};    // x: Mitte, y: Unterkante
+        this.pos = {x: 0.2, y: settings.walkHeight};    // x: Mitte, y: Unterkante
         this.speed = .01;
         this.direction = 1;  // positiv: Nach rechts, negativ: Nach links
         this.img = elements.sprite;
