@@ -6,7 +6,7 @@ import settings from "../settings.js";
 class Player {
     constructor() {
         this.pos = {x: 0.2, y: settings.walkHeight};    // x: Mitte, y: Unterkante
-        this.speed = .01;
+        this.speed = .02;
         this.direction = 1;  // positiv: Nach rechts, negativ: Nach links
         this.img = elements.sprite;
         this.numFrames = 8;

@@ -3,6 +3,8 @@
 import elements from "../elements.js";
 import settings from '../settings.js';
 import helpers from '../helpers.js';
+import Present from './Present.js';
+import data from '../data.js';
 
 class Branch {
     constructor({
@@ -13,6 +15,8 @@ class Branch {
                     deathProbability = 0,
                     splitCallback = () => {
                     },
+                    callbackKillLightning = () => {
+                    }
                 }) {
         this.active = true;
         this.points = [[x, y]];
@@ -20,11 +24,11 @@ class Branch {
         this.displacement = displacement;
         this.splitCallback = splitCallback;
         this.deathProbability = deathProbability;
+        this.callbackKillLightning = callbackKillLightning;
     }
 
     extend() {
         let [x, y] = this.points[this.points.length - 1];
-        // console.log(' ');
 
         let mxH = settings.maxExtendHorizontal;
         let mnH = settings.minExtendHorizontal;
@@ -39,8 +43,17 @@ class Branch {
             Math.random() < (this.deathProbability * settings.deathProbability)
             || y2 >= settings.walkHeight
         ) {
+
             this.active = false;
+            data.presents.push(new Present({
+                x: x2,
+                y: y2
+            }))
+
+            // Wenn alle Branches inaktiv, kill Lightning
+            this.callbackKillLightning();
         }
+
         // Verästelung
         if (Math.random() < settings.branchProbability) {
             this.splitCallback({
@@ -49,11 +62,8 @@ class Branch {
                 deathProbability: this.deathProbability * 2
             });
         }
-
         return ([x2, y2]);
     }
-
-
 }
 
 class Lightning {
@@ -66,30 +76,37 @@ class Lightning {
             new Branch({
                 splitCallback: this.split.bind(this),
                 width: this.initialWidth,
+                callbackKillLightning: this.kill.bind(this),
             })
         ]
+        this.active = true;
 
         const callbackTimer = () => {
             this.branches
                 .filter(b => b.active)
-                .forEach(branch => {
-                        let [x, y] = branch.extend();
-                        if (y >= 1) {
-                            branch.active = false;
-                            return false;
-                        }
-
-                    }
-                )
+                .forEach(branch => branch.extend())
 
             if (this.branches.some(b => b.active)) {
                 // Erweitern, wenn der Blitz noch nicht eingeschlagen ist
-                this.timerID = setTimeout(callbackTimer, Math.random() * 40 + 40)
+                this.timerID = setTimeout(callbackTimer, Math.random() * 40 + 40);
             }
         }
 
         callbackTimer();
+    }
 
+    kill() {
+
+        if (
+            this.active
+            && !this.branches.some(b => b.active)
+        ) {
+            this.active = false;
+            // data.lightning = null;
+            setTimeout(() => {
+                data.lightning = new Lightning()
+            }, settings.timeToRespawn)
+        }
     }
 
     split({
@@ -98,32 +115,29 @@ class Lightning {
               width,
               deathProbability = 0
           }) {
-        this.branches.push(new Branch({
-            x, y,
-            width,
-            deathProbability: 1 - (width / this.initialWidth),
-            splitCallback: this.split.bind(this),
-        }))
+        if (width > settings.thresholdWidth) {
+            this.branches.push(new Branch({
+                x, y,
+                width,
+                deathProbability: 1 - (width / this.initialWidth),
+                splitCallback: this.split.bind(this),
+                callbackKillLightning: this.kill.bind(this),
+            }))
+        }
     }
 
     render() {
         let c = elements.c;
         let ctx = c.getContext('2d');
-        // console.log(c);
 
         const renderBranch = branch => {
             ctx.lineJoin = 'bevel';
             ctx.strokeStyle = 'white';
             ctx.moveTo(branch.points[0][0] * c.width, branch.points[0][1] * c.height);
-            // console.log(branch);
-            // console.log(...branch[0]);
 
             branch.points.forEach(point => {
-                // console.log(point[0] * c.width, point[1] * c.height);
-
                 ctx.lineTo(point[0] * c.width, point[1] * c.height);
             });
-
         }
 
         ctx.filter = 'blur(5px)';
