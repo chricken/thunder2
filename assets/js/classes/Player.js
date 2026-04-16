@@ -2,6 +2,7 @@
 
 import elements from "../elements.js";
 import settings from "../settings.js";
+import data from "../data.js";
 
 class Player {
     constructor() {
@@ -12,7 +13,8 @@ class Player {
         this.numFrames = 8;
         this.currentFrame = 0;
         this.sourceSize = 312;
-        this.targetSize = 172;
+        this.targetSize = .1;
+        this.collectionDistance = .02;
 
         this.minDistFromEdge = 0.02;
     }
@@ -27,6 +29,18 @@ class Player {
         this.pos.x = Math.max(this.minDistFromEdge, this.pos.x);
         this.pos.x = Math.min(1 - this.minDistFromEdge, this.pos.x);
         this.currentFrame = (this.currentFrame + .5) % this.numFrames;
+
+        this.hitTestPresents()
+    }
+
+    hitTestPresents() {
+        for (let i = 0; i < data.presents.length; i++) {
+            let present = data.presents[i];
+            if (Math.abs(present.x - this.pos.x) < this.collectionDistance) {
+                console.log('collected', present);
+                data.presents = data.presents.filter(p => p !== present);
+            }
+        }
     }
 
     render() {
@@ -39,18 +53,18 @@ class Player {
                 0,
                 this.sourceSize,
                 this.sourceSize,
-                (this.pos.x * c.width) - this.targetSize / 2,
-                (this.pos.y * c.height) - this.targetSize,
-                this.targetSize,
-                this.targetSize
+                (this.pos.x * c.width) - (this.targetSize * c.width / 2),
+                (this.pos.y - this.targetSize) * c.height,
+                this.targetSize * c.width,
+                this.targetSize * c.width
             );
         } else {
             ctx.save()
             ctx.translate(
-                (this.pos.x * c.width) - this.targetSize / 2,
-                (this.pos.y * c.height) - this.targetSize
+                (this.pos.x * c.width) - (this.targetSize * c.width / 2),
+                (this.pos.y - this.targetSize) * c.height,
             )
-            ctx.scale(-1,1);
+            ctx.scale(-1, 1);
             ctx.drawImage(this.img,
                 ~~this.currentFrame * this.sourceSize,
                 0,
@@ -58,8 +72,8 @@ class Player {
                 this.sourceSize,
                 0,
                 0,
-                -this.targetSize,
-                this.targetSize
+                -this.targetSize * c.width,
+                this.targetSize * c.width
             );
             ctx.restore();
         }

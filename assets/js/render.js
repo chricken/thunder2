@@ -80,20 +80,33 @@ const render = {
         )
     },
 
-    createSprite() {
-        return new Promise((resolve) => {
-
-            elements.sprite = dom.create({
-                tagName: 'img',
-                src: './assets/img/spritesheet/viking.webp',
-                // parent: document.body,
-                listeners: {
-                    load() {
-                        resolve()
+    createSprites() {
+        return Promise.all([
+            new Promise((resolve) => {
+                elements.sprite = dom.create({
+                    tagName: 'img',
+                    src: './assets/img/spritesheet/viking.webp',
+                    // parent: document.body,
+                    listeners: {
+                        load() {
+                            resolve()
+                        }
                     }
-                }
+                })
+            }),
+            new Promise((resolve) => {
+                elements.crystal = dom.create({
+                    tagName: 'img',
+                    src: './assets/img/spritesheet/crystal.webp',
+                    // parent: document.body,
+                    listeners: {
+                        load() {
+                            resolve()
+                        }
+                    }
+                })
             })
-        })
+        ])
     },
 }
 

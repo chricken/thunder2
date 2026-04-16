@@ -11,7 +11,7 @@ const settings = {
     minWidth: .008,
     maxWidth: .015,
     thresholdWidth: .001,
-    walkHeight:  .985,
+    walkHeight:  .96,
 
     timeToRespawn: 500,
 

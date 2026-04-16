@@ -45,10 +45,13 @@ class Branch {
         ) {
 
             this.active = false;
+            if( y2 >= settings.walkHeight){
+
             data.presents.push(new Present({
                 x: x2,
                 y: y2
             }))
+            }
 
             // Wenn alle Branches inaktiv, kill Lightning
             this.callbackKillLightning();

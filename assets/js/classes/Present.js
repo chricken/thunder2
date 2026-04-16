@@ -11,13 +11,15 @@ class Present {
                     y = .5,
 
                 }) {
+
         this.x = x;
         this.y = y;
-        this.size = Math.random() * .02 + .02;
+        this.size = Math.random() * .02 + .04;
 
         this.timeAvailable = helpers.createNumberAbs(settings.minTimeAvailable, settings.maxTimeAvailable);
         this.tsSpawn = Date.now();
 
+        this.spriteIndex = helpers.createNumberAbs(0, 14);
 
     }
 
@@ -35,14 +37,19 @@ class Present {
         const {c} = elements;
         const ctx = c.getContext('2d');
 
-        ctx.fillStyle = '#fc4';
 
-        ctx.fillRect(
+
+        ctx.drawImage(
+            elements.crystal,
+            128 * this.spriteIndex,
+            0,
+            128,
+            128,
             (this.x - (this.size / 2)) * c.width,
             (this.y - this.size) * c.height,
             this.size * c.width,
             this.size * c.width,
-        );
+        )
 
     }
 }
