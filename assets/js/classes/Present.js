@@ -37,8 +37,6 @@ class Present {
         const {c} = elements;
         const ctx = c.getContext('2d');
 
-
-
         ctx.drawImage(
             elements.crystal,
             128 * this.spriteIndex,

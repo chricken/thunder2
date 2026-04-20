@@ -4,6 +4,7 @@ import Player from "./classes/Player.js";
 import elements from "./elements.js";
 import Lightning from "./classes/Lightning.js";
 import data from './data.js';
+import settings from "./settings.js";
 
 let player;
 
@@ -34,6 +35,9 @@ const game = {
         for (let i = 0; i < data.presents.length; i++) {
             data.presents[i].update()
         }
+        for (let i = 0; i < data.scoreSprites.length; i++) {
+            data.scoreSprites[i].update();
+        }
     },
 
     render() {
@@ -48,9 +52,18 @@ const game = {
         }
 
         for (let i = 0; i < data.presents.length; i++) {
-            data.presents[i].render()
+            data.presents[i].render();
         }
 
+        for (let i = 0; i < data.scoreSprites.length; i++) {
+            data.scoreSprites[i].render();
+        }
+        // console.log(~~(c.width * settings.fontHeight));
+
+        ctx.font = `${~~(c.width * settings.fontHeight)}px beepo-regular`;
+        ctx.textAlign = 'right';
+        ctx.fillStyle = 'white';
+        ctx.fillText(`${data.score}`, c.width - 10, ~~(c.width * settings.fontHeight));
     }
 }
 

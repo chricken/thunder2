@@ -19,6 +19,12 @@ const settings = {
     minTimeAvailable: 500,
     maxTimeAvailable: 2000,
 
+    // Schriften
+    fontHeight: .05,
+
+    // Score
+    scoreResetDelay: 1000,
+
 }
 
 export default settings;

@@ -3,6 +3,7 @@
 import elements from "../elements.js";
 import settings from "../settings.js";
 import data from "../data.js";
+import ScoreSprite from "./ScoreSprite.js";
 
 class Player {
     constructor() {
@@ -36,8 +37,22 @@ class Player {
     hitTestPresents() {
         for (let i = 0; i < data.presents.length; i++) {
             let present = data.presents[i];
+
+            // Wenn der Abstand kleiner ist als Schwellwert
             if (Math.abs(present.x - this.pos.x) < this.collectionDistance) {
-                console.log('collected', present);
+                // console.log('collected', present);
+                data.score += data.nextScore;
+                data.scoreSprites.push(new ScoreSprite(data.nextScore, this.pos.x, this.pos.y));
+
+                data.nextScore++;
+
+                // Score-Sprite hinzufügen
+                data.idTimerScoreReset && clearTimeout(data.idTimerScoreReset);
+                setTimeout(() => {
+                    data.nextScore = 1;
+                }, settings.scoreResetDelay)
+
+                // Kristall entfernen
                 data.presents = data.presents.filter(p => p !== present);
             }
         }

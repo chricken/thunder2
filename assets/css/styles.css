@@ -1,3 +1,12 @@
+
+@font-face {
+    font-family: 'beepo-regular';
+    src: url('/assets/fonts/beepo_regular_macroman/beepo-regular-webfont.woff2') format('woff2'),
+    url('/assets/fonts/beepo_regular_macroman/beepo-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html, body {
     position: relative;
     display: block;
