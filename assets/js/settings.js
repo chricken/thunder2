@@ -11,9 +11,12 @@ const settings = {
     minWidth: .008,
     maxWidth: .015,
     thresholdWidth: .001,
-    walkHeight:  .96,
+    walkHeight:  .98,
 
-    timeToRespawn: 500,
+    timeToRespawn: 1700,
+    timeToLiveAfter: 300,
+
+    maxBranches: 4,
 
     // Presents
     minTimeAvailable: 500,
@@ -24,6 +27,9 @@ const settings = {
 
     // Score
     scoreResetDelay: 1000,
+
+    // paused
+    isPaused: false,
 
 }
 

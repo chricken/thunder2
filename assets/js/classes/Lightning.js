@@ -45,12 +45,12 @@ class Branch {
         ) {
 
             this.active = false;
-            if( y2 >= settings.walkHeight){
+            if (y2 >= settings.walkHeight) {
 
-            data.presents.push(new Present({
-                x: x2,
-                y: y2
-            }))
+                data.presents.push(new Present({
+                    x: x2,
+                    y: y2
+                }))
             }
 
             // Wenn alle Branches inaktiv, kill Lightning
@@ -75,6 +75,7 @@ class Lightning {
                 } = {}) {
 
         this.initialWidth = initialWidth;
+        this.maxBranches = settings.maxBranches;
         this.branches = [
             new Branch({
                 splitCallback: this.split.bind(this),
@@ -83,19 +84,15 @@ class Lightning {
             })
         ]
         this.active = true;
+        this.hitRadius = .02;
 
-        const callbackTimer = () => {
-            this.branches
-                .filter(b => b.active)
-                .forEach(branch => branch.extend())
+    }
 
-            if (this.branches.some(b => b.active)) {
-                // Erweitern, wenn der Blitz noch nicht eingeschlagen ist
-                this.timerID = setTimeout(callbackTimer, Math.random() * 40 + 40);
-            }
-        }
+    update(){
+        this.branches
+            .filter(b => b.active)
+            .forEach(branch => branch.extend())
 
-        callbackTimer();
     }
 
     kill() {
@@ -106,6 +103,10 @@ class Lightning {
         ) {
             this.active = false;
             // data.lightning = null;
+            setTimeout(() => {
+                data.lightning = null;
+            }, settings.timeToLiveAfter)
+
             setTimeout(() => {
                 data.lightning = new Lightning()
             }, settings.timeToRespawn)
@@ -118,7 +119,10 @@ class Lightning {
               width,
               deathProbability = 0
           }) {
-        if (width > settings.thresholdWidth) {
+        if (
+            width > settings.thresholdWidth
+            && this.branches.length < this.maxBranches
+        ) {
             this.branches.push(new Branch({
                 x, y,
                 width,
@@ -162,6 +166,23 @@ class Lightning {
             renderBranch(branch);
             ctx.stroke();
         });
+
+        this.branches.forEach(branch => {
+            let [x, y] = branch.points[branch.points.length - 1];
+
+            ctx.beginPath();
+            ctx.fillStyle = '#f00';
+            ctx.arc(
+                x * c.width,
+                y * c.height,
+                this.hitRadius * c.width,
+                0,
+                2 * Math.PI
+            );
+            ctx.fill();
+
+
+        })
 
     }
 }

@@ -6,7 +6,8 @@ const data = {
     presents:[],
     scoreSprites: [],
     lightning: null,
-    idTimerScoreReset: null
+    idTimerScoreReset: null,
+    idTimerGame: null,
 }
 
 export default data;

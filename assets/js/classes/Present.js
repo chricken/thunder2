@@ -9,7 +9,6 @@ class Present {
     constructor({
                     x = .5,
                     y = .5,
-
                 }) {
 
         this.x = x;
@@ -46,7 +45,7 @@ class Present {
             (this.x - (this.size / 2)) * c.width,
             (this.y - this.size) * c.height,
             this.size * c.width,
-            this.size * c.width,
+            this.size * c.height,
         )
 
     }

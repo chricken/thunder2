@@ -7,15 +7,15 @@ class ScoreSprite {
     constructor(score, x, y) {
         this.score = score;
         this.pos = {x, y};
-        this.opacity = .8;
-        this.speed = .01;
+        this.opacity = .9;
+        this.speed = Math.random() * .005 + .002;
         this.size = .02;
     }
 
     update() {
         this.pos.y -= this.speed;
-        this.opacity *= .95;
-        if(this.opacity <= 0){
+        this.opacity *= .97;
+        if (this.opacity <= 0) {
             data.scoreSprites.splice(data.scoreSprites.indexOf(this), 1);
         }
     }

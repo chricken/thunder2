@@ -13,21 +13,37 @@ const game = {
         player = new Player();
         data.lightning = new Lightning();
 
-        setInterval(() => {
-                game.update();
-                game.render();
-            },
-            30
-        )
-
+        game.tick();
+        /*
+        data.idTimerGame = setTimeout( game.tick, 30 );
         game.update();
         game.render();
+        */
 
         window.addEventListener('keydown', evt => {
             if (evt.key === ' ') {
                 player.changeDirection();
+            } else if (evt.key === 'p' || evt.key === 'P') {
+                settings.isPaused = !settings.isPaused;
             }
         })
+    },
+
+    tick() {
+        if (!settings.isPaused) {
+            game.update();
+            game.render();
+            data.lightning && data.lightning.update()
+        }
+        /*
+        !settings.isPaused
+        && (data.idTimerGame = setTimeout(
+            game.tick,
+            30
+        ))
+        */
+        data.idTimerGame = setTimeout(game.tick, 30);
+
     },
 
     update() {

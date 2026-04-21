@@ -31,7 +31,20 @@ class Player {
         this.pos.x = Math.min(1 - this.minDistFromEdge, this.pos.x);
         this.currentFrame = (this.currentFrame + .5) % this.numFrames;
 
-        this.hitTestPresents()
+        this.hitTestPresents();
+        this.hitTestLightning();
+    }
+
+    hitTestLightning() {
+        if (!data.lightning) return;
+
+        data.lightning.branches.forEach(branch => {
+            const [x, y] = branch.points[branch.points.length - 1];
+            let distance = Math.hypot(x - this.pos.x, y - this.pos.y);
+            if (distance < data.lightning.hitRadius)
+                console.log(distance);
+        })
+
     }
 
     hitTestPresents() {
@@ -71,7 +84,7 @@ class Player {
                 (this.pos.x * c.width) - (this.targetSize * c.width / 2),
                 (this.pos.y - this.targetSize) * c.height,
                 this.targetSize * c.width,
-                this.targetSize * c.width
+                this.targetSize * c.height
             );
         } else {
             ctx.save()
@@ -88,10 +101,21 @@ class Player {
                 0,
                 0,
                 -this.targetSize * c.width,
-                this.targetSize * c.width
+                this.targetSize * c.height
             );
             ctx.restore();
+
         }
+
+        // Linie, um den Laufpfad zu zeigen
+        /*
+        ctx.beginPath()
+        ctx.strokeStyle = 'red'
+        ctx.lineWidth = 2;
+        ctx.moveTo(0, settings.walkHeight * c.height)
+        ctx.lineTo(c.width, settings.walkHeight * c.height)
+        ctx.stroke()
+        */
     }
 }
 
