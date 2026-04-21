@@ -34,14 +34,10 @@ const game = {
             game.update();
             game.render();
             data.lightning && data.lightning.update()
+        } else {
+            game.renderPaused();
         }
-        /*
-        !settings.isPaused
-        && (data.idTimerGame = setTimeout(
-            game.tick,
-            30
-        ))
-        */
+
         data.idTimerGame = setTimeout(game.tick, 30);
 
     },
@@ -54,6 +50,18 @@ const game = {
         for (let i = 0; i < data.scoreSprites.length; i++) {
             data.scoreSprites[i].update();
         }
+    },
+
+    renderPaused() {
+        const {c} = elements;
+        const ctx = c.getContext('2d');
+
+        let fontHeight = ~~(c.width * settings.fontHeight * 4);
+        ctx.font = `${fontHeight}px beepo-regular`;
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'white';
+        ctx.fillText(`Paused`, c.width / 2, (c.height / 2) + (fontHeight / 2));
+        console.log(fontHeight);
     },
 
     render() {
@@ -74,12 +82,12 @@ const game = {
         for (let i = 0; i < data.scoreSprites.length; i++) {
             data.scoreSprites[i].render();
         }
-        // console.log(~~(c.width * settings.fontHeight));
 
         ctx.font = `${~~(c.width * settings.fontHeight)}px beepo-regular`;
         ctx.textAlign = 'right';
         ctx.fillStyle = 'white';
         ctx.fillText(`${data.score}`, c.width - 10, ~~(c.width * settings.fontHeight));
+
     }
 }
 
