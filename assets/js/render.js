@@ -108,6 +108,10 @@ const render = {
             })
         ])
     },
+
+    gameOver(){
+
+    },
 }
 
 export default render

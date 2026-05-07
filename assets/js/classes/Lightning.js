@@ -75,7 +75,7 @@ class Lightning {
                 } = {}) {
 
         this.initialWidth = initialWidth;
-        this.maxBranches = settings.maxBranches;
+        this.maxBranches = Math.floor(settings.maxBranches);
         this.branches = [
             new Branch({
                 splitCallback: this.split.bind(this),
@@ -86,6 +86,7 @@ class Lightning {
         this.active = true;
         this.hitRadius = .02;
 
+        settings.maxBranches+=settings.maxBranchesIncrement;
     }
 
     update(){
@@ -167,6 +168,7 @@ class Lightning {
             ctx.stroke();
         });
 
+        /*
         this.branches.forEach(branch => {
             let [x, y] = branch.points[branch.points.length - 1];
 
@@ -180,9 +182,8 @@ class Lightning {
                 2 * Math.PI
             );
             ctx.fill();
-
-
         })
+        */
 
     }
 }

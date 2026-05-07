@@ -2,7 +2,7 @@
 
 const settings = {
     // Lighting
-    branchProbability: .1,
+    branchProbability: .11,
     deathProbability: .08,
     minExtendVertical: .04,
     maxExtendVertical: .06,
@@ -14,9 +14,10 @@ const settings = {
     walkHeight:  .98,
 
     timeToRespawn: 1700,
-    timeToLiveAfter: 300,
+    timeToLiveAfter: 200,
 
-    maxBranches: 4,
+    maxBranches: 1,
+    maxBranchesIncrement: .2,
 
     // Presents
     minTimeAvailable: 500,
@@ -30,6 +31,7 @@ const settings = {
 
     // paused
     isPaused: false,
+    isGameOver: false,
 
 }
 

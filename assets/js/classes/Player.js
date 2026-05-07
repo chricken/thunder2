@@ -3,7 +3,8 @@
 import elements from "../elements.js";
 import settings from "../settings.js";
 import data from "../data.js";
-import ScoreSprite from "./ScoreSprite.js";
+import ScoreSprite from "./ScoreSprite.js"
+import game from '../game.js'
 
 class Player {
     constructor() {
@@ -18,6 +19,8 @@ class Player {
         this.collectionDistance = .02;
 
         this.minDistFromEdge = 0.02;
+
+        this.distanceToSurvive = 0.05;
     }
 
     changeDirection() {
@@ -41,8 +44,10 @@ class Player {
         data.lightning.branches.forEach(branch => {
             const [x, y] = branch.points[branch.points.length - 1];
             let distance = Math.hypot(x - this.pos.x, y - this.pos.y);
-            if (distance < data.lightning.hitRadius)
+            if (distance < data.lightning.hitRadius) {
                 console.log(distance);
+                game.gameOver()
+            }
         })
 
     }
@@ -82,15 +87,15 @@ class Player {
                 this.sourceSize,
                 this.sourceSize,
                 (this.pos.x * c.width) - (this.targetSize * c.width / 2),
-                (this.pos.y - this.targetSize) * c.height,
+                (this.pos.y * c.height) - (this.targetSize * c.width),
                 this.targetSize * c.width,
-                this.targetSize * c.height
+                this.targetSize * c.width
             );
         } else {
             ctx.save()
             ctx.translate(
                 (this.pos.x * c.width) - (this.targetSize * c.width / 2),
-                (this.pos.y - this.targetSize) * c.height,
+                (this.pos.y * c.height) - (this.targetSize * c.width),
             )
             ctx.scale(-1, 1);
             ctx.drawImage(this.img,
@@ -101,7 +106,7 @@ class Player {
                 0,
                 0,
                 -this.targetSize * c.width,
-                this.targetSize * c.height
+                this.targetSize * c.width
             );
             ctx.restore();
 
@@ -117,6 +122,7 @@ class Player {
         ctx.stroke()
         */
     }
+
 }
 
 export default Player

@@ -5,6 +5,8 @@ import elements from "./elements.js";
 import Lightning from "./classes/Lightning.js";
 import data from './data.js';
 import settings from "./settings.js";
+import dom from "./dom.js";
+import render from "./render.js";
 
 let player;
 
@@ -14,11 +16,6 @@ const game = {
         data.lightning = new Lightning();
 
         game.tick();
-        /*
-        data.idTimerGame = setTimeout( game.tick, 30 );
-        game.update();
-        game.render();
-        */
 
         window.addEventListener('keydown', evt => {
             if (evt.key === ' ') {
@@ -27,6 +24,20 @@ const game = {
                 settings.isPaused = !settings.isPaused;
             }
         })
+    },
+
+    restart() {
+        const els = Object.values(elements.gameOver);
+        els.forEach(el => el.remove());
+        data.score = 0;
+        settings.maxBranches = 1;
+        settings.isGameOver = false;
+        render.createBG();
+
+        player = new Player();
+        data.lightning = new Lightning();
+
+        game.tick();
     },
 
     tick() {
@@ -38,7 +49,8 @@ const game = {
             game.renderPaused();
         }
 
-        data.idTimerGame = setTimeout(game.tick, 30);
+        if (!settings.isGameOver)
+            data.idTimerGame = setTimeout(game.tick, 30);
 
     },
 
@@ -87,6 +99,47 @@ const game = {
         ctx.textAlign = 'right';
         ctx.fillStyle = 'white';
         ctx.fillText(`${data.score}`, c.width - 10, ~~(c.width * settings.fontHeight));
+
+    },
+
+    gameOver() {
+        settings.isGameOver = true;
+
+        const bg = dom.create({
+            cssClassName: 'game-over',
+            parent: elements.body
+        })
+
+        const inner = dom.create({
+            cssClassName: 'game-over_inner',
+            parent: bg
+        })
+
+        elements.gameOver = {
+            bg,
+            inner,
+            title: dom.create({
+                cssClassName: 'game-over__title',
+                parent: inner,
+                content: 'Game Over'
+            }),
+            score: dom.create({
+                cssClassName: 'game-over__score',
+                parent: inner,
+                content: `You scored ${data.score} Points`
+            }),
+            btnRestart: dom.create({
+                cssClassName: 'game-over__btn-restart',
+                parent: inner,
+                content: 'Restart',
+                listeners: {
+                    click: () => {
+                        game.restart();
+                    }
+                }
+            })
+        }
+
 
     }
 }

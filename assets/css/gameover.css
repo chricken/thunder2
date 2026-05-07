@@ -1,0 +1,88 @@
+.game-over {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #000a;
+    z-index: 1000;
+
+    .game-over__title {
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        font-weight: 300;
+        color: #e0e0e0;
+        text-align: center;
+        margin: 0 0 1.5rem;
+        letter-spacing: 0.1em;
+        text-shadow: 0 0 8px rgba(224, 224, 224, 0.3);
+        animation: fadeIn 1.2s ease-out;
+        line-height: 1.2;
+    }
+
+    .game-over__score, .game-over__btn-restart {
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        font-size: clamp(1.2rem, 4vw, 2rem);
+        font-weight: 200;
+        color: #b0b0b0;
+        text-align: center;
+        margin: 0;
+        letter-spacing: 0.05em;
+        opacity: 0.9;
+        transition: all 0.3s ease;
+    }
+
+    .game-over__score:hover {
+        color: #e0e0e0;
+        opacity: 1;
+    }
+
+    .game-over__btn-restart {
+        border: 2px solid #e0e0e0;
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+        margin-top: 50px;
+        background-color: #fff2;
+        padding-top: 10px;
+        padding-bottom: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .game-over__btn-restart:hover {
+        background-color: #fffa;
+        color:#000;
+    }
+
+    .game-over_inner {
+        position: relative;
+        top: 50%;
+        transform: translateY(-200px);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Optional: Für die abfallende Schriftgröße nach unten hin */
+    @media (min-width: 600px) {
+        .game-over__title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .game-over__score {
+            font-size: 1.8rem;
+            margin-top: -0.5rem;
+        }
+    }
+}
