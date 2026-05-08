@@ -14,7 +14,7 @@ const settings = {
     walkHeight:  .98,
 
     timeToRespawn: 1700,
-    timeToLiveAfter: 200,
+    timeToLiveAfter: 600,
 
     maxBranches: 1,
     maxBranchesIncrement: .2,

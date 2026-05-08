@@ -7,6 +7,7 @@ import data from './data.js';
 import settings from "./settings.js";
 import dom from "./dom.js";
 import render from "./render.js";
+import hooks from "./hooks.js";
 
 let player;
 
@@ -103,6 +104,8 @@ const game = {
     },
 
     gameOver() {
+        hooks.saveHighscore(data.score, 'thunder');
+
         settings.isGameOver = true;
 
         const bg = dom.create({
@@ -118,16 +121,19 @@ const game = {
         elements.gameOver = {
             bg,
             inner,
+
             title: dom.create({
                 cssClassName: 'game-over__title',
                 parent: inner,
                 content: 'Game Over'
             }),
+
             score: dom.create({
                 cssClassName: 'game-over__score',
                 parent: inner,
                 content: `You scored ${data.score} Points`
             }),
+
             btnRestart: dom.create({
                 cssClassName: 'game-over__btn-restart',
                 parent: inner,
