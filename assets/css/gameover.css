@@ -86,3 +86,22 @@
         }
     }
 }
+
+.game-over__scoretable {
+    position: relative;
+    display: block;
+    background-color: #0005;
+    height: 200px;
+    overflow-y: auto;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game-over__scoretable__row {
+    text-align: center;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 200;
+    color: #b0b0b0;
+}

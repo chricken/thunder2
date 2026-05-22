@@ -104,7 +104,6 @@ const game = {
     },
 
     gameOver() {
-        hooks.saveHighscore(data.score, 'thunder');
 
         settings.isGameOver = true;
 
@@ -145,6 +144,27 @@ const game = {
                 }
             })
         }
+        hooks.saveHighscore(data.score, 'thunder').then(
+            scoretable => {
+                console.log('scoretable', scoretable);
+
+                elements.gameOver.scoretable = dom.create({
+                    cssClassName: 'game-over__scoretable',
+                    parent: inner,
+                })
+
+                scoretable.forEach(
+                    (score, index) => {
+                        dom.create({
+                            cssClassName: 'game-over__scoretable__row',
+                            parent: elements.gameOver.scoretable,
+                            content: `${index + 1}. ${score.playerName||'anonymous'} - ${score.score}`
+                        })
+                    }
+                )
+
+            }
+        )
 
 
     }
