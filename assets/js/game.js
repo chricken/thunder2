@@ -25,6 +25,10 @@ const game = {
                 settings.isPaused = !settings.isPaused;
             }
         })
+
+        elements.cForeground.addEventListener('click', () => {
+            player.changeDirection();
+        })
     },
 
     restart() {
@@ -158,7 +162,7 @@ const game = {
                         dom.create({
                             cssClassName: 'game-over__scoretable__row',
                             parent: elements.gameOver.scoretable,
-                            content: `${index + 1}. ${score.playerName||'anonymous'} - ${score.score}`
+                            content: `${index + 1}. ${score.playerName || 'anonymous'} - ${score.score}`
                         })
                     }
                 )

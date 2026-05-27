@@ -10,17 +10,17 @@ const settings = {
     maxExtendHorizontal: .03,
     minWidth: .008,
     maxWidth: .015,
-    thresholdWidth: .001,
+    thresholdWidth: .002,
     walkHeight:  .98,
 
     timeToRespawn: 1700,
-    timeToLiveAfter: 600,
+    timeToLiveAfter: 200,
 
     maxBranches: 1,
     maxBranchesIncrement: .2,
 
     // Presents
-    minTimeAvailable: 500,
+    minTimeAvailable: 800,
     maxTimeAvailable: 2000,
 
     // Schriften

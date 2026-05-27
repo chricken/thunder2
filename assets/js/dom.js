@@ -46,13 +46,13 @@ const dom = {
         Object.entries(styles).forEach(([key, value]) => neu.style[key] = value);
 
         if (parent) {
-            if (insert == 'append') {
+            if (insert === 'append') {
                 parent.append(neu);
-            } else if (insert == 'prepend') {
+            } else if (insert === 'prepend') {
                 parent.prepend(neu);
-            } else if (insert == 'before') {
+            } else if (insert === 'before') {
                 parent.before(neu);
-            } else if (insert == 'after') {
+            } else if (insert === 'after') {
                 parent.after(neu);
             }
         }

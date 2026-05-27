@@ -26,7 +26,7 @@ const init = () => {
     ).then(
         game.init
     ).then(
-        () => console.log(elements)
+        console.log
     ).catch(
         console.warn
     )
