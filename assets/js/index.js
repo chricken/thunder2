@@ -4,6 +4,8 @@ import dom from "./dom.js";
 import render from './render.js';
 import game from './game.js';
 import elements from './elements.js';
+
+// Notwendige Imports für den Connector
 import hooks from './hooks.js';
 import connector from '/connector/index.js';
 
