@@ -12,7 +12,6 @@ import connector from '/connector/index.js';
 const init = () => {
     // Die Rückgabe vom Connector wird in ein Modul geschrieben,
     // um es von überall ansprechen zu können
-    console.log('Connector initialized', hooks);
 
     dom.mapping();
     dom.appendEventListeners();
