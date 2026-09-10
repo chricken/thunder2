@@ -32,6 +32,9 @@ const game = {
     },
 
     restart() {
+        // Tasten-Eventlistener entfernen, damit das Game nichtmehrfach neu gestartet werden kann
+        window.removeEventListener('keydown', game.handleKeyRestart);
+
         const els = Object.values(elements.gameOver);
         els.forEach(el => el.remove());
         data.score = 0;
@@ -43,6 +46,14 @@ const game = {
         data.lightning = new Lightning();
 
         game.tick();
+    },
+
+    handleKeyRestart(evt){
+        // Diese Funktion soll auf eine Taste zum Restart des Games reagieren
+        // Sie ist hier angelegt, damit ich den Eventlistener einfach entfernen kann
+        if (evt.key === 'Enter') {
+            game.restart();
+        }
     },
 
     tick() {
@@ -140,7 +151,7 @@ const game = {
             btnRestart: dom.create({
                 cssClassName: 'game-over__btn-restart',
                 parent: inner,
-                content: 'Restart',
+                content: 'Restart (Enter)',
                 listeners: {
                     click: () => {
                         game.restart();
@@ -148,6 +159,9 @@ const game = {
                 }
             })
         }
+
+        window.addEventListener('keydown', game.handleKeyRestart );
+
         hooks.saveHighscore(data.score, 'thunder').then(
             scoretable => {
                 console.log('scoretable', scoretable);

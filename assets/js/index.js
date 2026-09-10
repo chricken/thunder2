@@ -9,6 +9,7 @@ import elements from './elements.js';
 import hooks from './hooks.js';
 import connector from '/connector/index.js';
 
+
 const init = () => {
     // Die Rückgabe vom Connector wird in ein Modul geschrieben,
     // um es von überall ansprechen zu können
@@ -16,7 +17,10 @@ const init = () => {
     dom.mapping();
     dom.appendEventListeners();
 
+    console.log('elements',elements)
+
     connector.init().then(
+        // Zurückgegebenen Hook ablegen
         result => Object.assign(hooks, result)
     ).then(
         render.init
@@ -34,4 +38,4 @@ const init = () => {
 
 }
 
-init();
+window.addEventListener('load', init);

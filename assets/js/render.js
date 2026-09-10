@@ -2,10 +2,12 @@
 
 import elements from "./elements.js";
 import dom from "./dom.js";
+import meta from '../../meta.json' with { type: 'json' };;
 
 
 const render = {
     init() {
+        console.log('render.init')
         let w = document.documentElement.clientWidth - 20;
         let h = document.documentElement.clientHeight - 20;
 
@@ -33,6 +35,7 @@ const render = {
         let c = elements.cBG;
         let ctxBG = c.getContext('2d');
         if (elements.imgBG) {
+            console.log('elements.imgBG', elements.imgBG)
             ctxBG.drawImage(elements.imgBG, 0, 0, c.width, c.height);
             console.log(elements.imgBG.getAttribute('src'));
             document.body.style.backgroundImage = `url('${elements.imgBG.getAttribute('src')}')`;
@@ -40,16 +43,19 @@ const render = {
     },
 
     createBG() {
+        console.log('createBG')
         return fetch('/getFileListOfFolder', {
             method: 'post',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                folder: '/games/thunder/assets/img/backgrounds'
+                folder: `/games/${meta.uniqueTitle}/assets/img/backgrounds`
             })
         }).then(
             res => res.json()
         ).then(
             res => {
+                // console.log('Filelist', res)
+
                 let imgPath = res[~~(Math.random() * res.length)];
 
                 elements.imgBG = dom.create({
@@ -81,6 +87,7 @@ const render = {
     },
 
     createSprites() {
+        console.log('Creating sprites')
         return Promise.all([
             new Promise((resolve) => {
                 elements.sprite = dom.create({
@@ -90,6 +97,9 @@ const render = {
                     listeners: {
                         load() {
                             resolve()
+                        },
+                        error(err) {
+                            console.error('Error loading sprite', err)
                         }
                     }
                 })
@@ -102,6 +112,9 @@ const render = {
                     listeners: {
                         load() {
                             resolve()
+                        },
+                        error(err){
+                            console.error('Error loading crystal', err)
                         }
                     }
                 })

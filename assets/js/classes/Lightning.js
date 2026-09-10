@@ -5,6 +5,7 @@ import settings from '../settings.js';
 import helpers from '../helpers.js';
 import Present from './Present.js';
 import data from '../data.js';
+import sfx from '../sfx.js';
 
 class Branch {
     constructor({
@@ -25,6 +26,8 @@ class Branch {
         this.splitCallback = splitCallback;
         this.deathProbability = deathProbability;
         this.callbackKillLightning = callbackKillLightning;
+        sfx.thunder()
+
     }
 
     extend() {
