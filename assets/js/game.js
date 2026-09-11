@@ -8,6 +8,7 @@ import settings from "./settings.js";
 import dom from "./dom.js";
 import render from "./render.js";
 import hooks from "./hooks.js";
+import sfx from './sfx.js';
 
 let player;
 
@@ -34,6 +35,9 @@ const game = {
     restart() {
         // Tasten-Eventlistener entfernen, damit das Game nichtmehrfach neu gestartet werden kann
         window.removeEventListener('keydown', game.handleKeyRestart);
+
+        // Soiund
+        sfx.replay();
 
         const els = Object.values(elements.gameOver);
         els.forEach(el => el.remove());
@@ -121,6 +125,9 @@ const game = {
     gameOver() {
 
         settings.isGameOver = true;
+
+        // Sound
+        sfx.dead();
 
         const bg = dom.create({
             cssClassName: 'game-over',

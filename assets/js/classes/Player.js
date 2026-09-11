@@ -5,6 +5,7 @@ import settings from "../settings.js";
 import data from "../data.js";
 import ScoreSprite from "./ScoreSprite.js"
 import game from '../game.js'
+import sfx from '../sfx.js';
 
 class Player {
     constructor() {
@@ -36,6 +37,9 @@ class Player {
 
         this.hitTestPresents();
         this.hitTestLightning();
+
+        if (this.pos.x <= this.minDistFromEdge) this.changeDirection()
+        if (this.pos.x >= 1 - this.minDistFromEdge) this.changeDirection()
     }
 
     hitTestLightning() {
@@ -72,6 +76,9 @@ class Player {
 
                 // Kristall entfernen
                 data.presents = data.presents.filter(p => p !== present);
+
+                // Sound abspielen
+                sfx.getGem();
             }
         }
     }

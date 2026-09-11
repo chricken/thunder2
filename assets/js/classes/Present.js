@@ -18,7 +18,7 @@ class Present {
         this.timeAvailable = helpers.createNumberAbs(settings.minTimeAvailable, settings.maxTimeAvailable);
         this.tsSpawn = Date.now();
 
-        this.spriteIndex = helpers.createNumberAbs(0, 14);
+        this.spriteIndex = helpers.createNumberAbs(0, 14-1);
 
     }
 
