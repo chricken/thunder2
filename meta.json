@@ -1,7 +1,7 @@
 {
   "title": "Thunder",
   "uniqueTitle": "thunder2",
-  "version": 0.1,
+  "version": 1.0,
   "desc": "A single action game. You are a viking warrior trying to avoid the fierce strikes of Thor.",
   "urlGame": "/games/thunder2",
   "multiplayer": false

@@ -42,7 +42,7 @@ const game = {
         const els = Object.values(elements.gameOver);
         els.forEach(el => el.remove());
         data.score = 0;
-        settings.maxBranches = 1;
+        settings.maxBranches = settings.startBranches;
         settings.isGameOver = false;
         render.createBG();
 

@@ -11,11 +11,11 @@ const settings = {
     minWidth: .008,
     maxWidth: .015,
     thresholdWidth: .002,
-    walkHeight:  .98,
+    walkHeight: .98,
 
     timeToRespawn: 1700,
     timeToLiveAfter: 200,
-
+    startBranches: 1,
     maxBranches: 1,
     maxBranchesIncrement: .2,
 
